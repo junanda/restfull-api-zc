@@ -9,7 +9,7 @@ SQLALCHEMY_DATABSE_URL = "mariadb+pymysql://{}:{}@{}/{}?charset=utf8mb4".format(
                                                                                 os.getenv('DB_NAME'))
 
 engine = create_engine(
-    SQLALCHEMY_DATABSE_URL, connect_args={"check_same_thread": False}
+    SQLALCHEMY_DATABSE_URL
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
