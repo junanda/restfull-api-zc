@@ -4,7 +4,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-@app.get("/api/v0.1/")
+@app.get("/")
 async def index():
     return {'body': 'welcome learning FastApi'}
 
