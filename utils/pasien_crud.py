@@ -1,16 +1,17 @@
 from sqlalchemy.orm import Session
+from fastapi_sqlalchemy import db
 from models import Pasien, Pasienbase
 
 
-def get_pasien(db: Session, pasien_id: int):
-    return db.query(Pasien).filter(Pasien.id == pasien_id).first()
+def get_pasien(pasien_id: int):
+    return db.session.query(Pasien).filter(Pasien.id == pasien_id).first()
 
 
-def get_pasiens(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Pasien).offset(skip).limit(limit).all()
+def get_pasiens(skip: int = 0, limit: int = 100):
+    return db.session.query(Pasien).offset(skip).limit(limit).all()
 
 
-def create_pasien(db: Session, pasien: Pasienbase):
+def create_pasien( pasien: Pasienbase):
     db_pasien = Pasien(
         name=pasien.name,
         gender=pasien.gender,
@@ -19,23 +20,23 @@ def create_pasien(db: Session, pasien: Pasienbase):
         address=pasien.address
     )
 
-    db.add(db_pasien)
-    db.commit()
-    db.refresh(db_pasien)
+    db.session.add(db_pasien)
+    db.session.commit()
+    db.session.refresh(db_pasien)
     return db_pasien
 
 
-def update(db: Session, data_update: Pasienbase, id_pasien: int):
-    data_up = db.query(Pasien).get(id_pasien)
+def update(data_update: Pasienbase, id_pasien: int):
+    data_up = db.session.query(Pasien).get(id_pasien)
     data_up.name = data_update.name
     data_up.gender = data_update.gender
     data_up.no_telp = data_update.no_telp
     data_up.birthday = data_update.birthday
     data_up.address = data_update.address
-    db.commit()
+    db.session.commit()
 
 
-def delete(db: Session, id_p: int):
-    data_del = db.query(Pasien).get(id_p)
-    db.delete(data_del)
+def delete(id_p: int):
+    data_del = db.session.query(Pasien).get(id_p)
+    db.session.delete(data_del)
     db.commit()
