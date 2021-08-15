@@ -1,4 +1,3 @@
-from sqlalchemy.orm import Session
 from fastapi_sqlalchemy import db
 from models import Pasien, Pasienbase
 
@@ -11,7 +10,7 @@ def get_pasiens(skip: int = 0, limit: int = 100):
     return db.session.query(Pasien).offset(skip).limit(limit).all()
 
 
-def create_pasien( pasien: Pasienbase):
+def create_pasien(pasien: Pasienbase):
     db_pasien = Pasien(
         name=pasien.name,
         gender=pasien.gender,
@@ -39,4 +38,4 @@ def update(data_update: Pasienbase, id_pasien: int):
 def delete(id_p: int):
     data_del = db.session.query(Pasien).get(id_p)
     db.session.delete(data_del)
-    db.commit()
+    db.session.commit()
