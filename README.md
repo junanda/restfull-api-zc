@@ -23,3 +23,7 @@ Create database and make migration with command
 for running, type command
 
 `python main.py` or `uvicorn ain:app --reload`
+
+endpoint `http://127.0.0.1:8000/pasiens`
+
+Docuementasi API (Swagger) : `http://127.0.0.1:8000/docs`
